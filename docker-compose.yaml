@@ -1,0 +1,27 @@
+version: '3'
+services:
+  client:
+    image: node:20
+    container_name: geo_client
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: ./client/lap1-project-frontend
+        target: /geoGame
+    working_dir: /geoGame
+    command: bash -c "npm install && npm run dev"
+    depends_on:
+      - server
+
+  server:
+    image: node:20
+    container_name: geo_server
+    ports:
+      - 4000:4000
+    volumes:
+      - type: bind
+        source: ./server/lap1-project-backend
+        target: /geoServer
+    working_dir: /geoServer
+    command: bash -c "npm install && npm run dev"
